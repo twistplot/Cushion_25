@@ -12,16 +12,41 @@ body {
   background: #f9f9f9;
 }
 
-/* Container */
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
+/* Fix Header Spacing */
+.header {
+  background: #fff;
+  padding: 10px 0; /* Reduce padding */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Keep it at the top */
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-/* Hero Section */
+/* Navigation */
+.nav ul {
+  list-style: none;
+  display: flex;
+}
+
+.nav li {
+  margin-left: 20px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #3498db;
+}
+
+/* Ensure Hero Section Starts at the Top */
 .hero {
+  margin-top: 80px; /* Prevents hero section from being hidden */
   background: url('hero-bg.jpg') center/cover no-repeat;
   height: 100vh;
   display: flex;
@@ -38,7 +63,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(44, 62, 80, 0.6); /* Dark overlay for readability */
+  background: rgba(44, 62, 80, 0.6);
 }
 
 .hero-content {
@@ -88,12 +113,8 @@ body {
 @media screen and (max-width: 768px) {
   
   /* Adjust Hero Section */
-  .hero h2 {
-    font-size: 2.2rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
+  .hero {
+    margin-top: 60px; /* Adjust hero section for mobile */
   }
 
   /* Reduce Button Size */
