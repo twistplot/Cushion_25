@@ -20,68 +20,6 @@ body {
   padding: 20px;
 }
 
-/* Header */
-.header {
-  background: #fff;
-  padding: 20px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo-img {
-  width: 48px;
-  height: 48px;
-  margin-right: 10px;
-}
-
-.logo h1 {
-  color: #2c3e50;
-  font-size: 1.5rem;
-}
-
-/* Navigation */
-.nav ul {
-  list-style: none;
-  display: flex;
-}
-
-.nav li {
-  margin-left: 20px;
-}
-
-.nav a {
-  text-decoration: none;
-  color: #2c3e50;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.nav a:hover {
-  color: #3498db;
-}
-
-/* Mobile Navigation */
-.menu-icon {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
 /* Hero Section */
 .hero {
   background: url('hero-bg.jpg') center/cover no-repeat;
@@ -119,17 +57,14 @@ body {
   margin-bottom: 30px;
 }
 
-.btn {
-  background: #3498db;
-  color: #fff;
-  padding: 10px 30px;
-  text-decoration: none;
-  border-radius: 30px;
-  transition: background 0.3s ease;
-}
-
-.btn:hover {
-  background: #2980b9;
+/* Fix Large Images on Mobile */
+.feature-image {
+  width: 100%; /* Make images responsive */
+  max-width: 400px; /* Prevents them from getting too large */
+  height: auto; /* Maintain aspect ratio */
+  display: block;
+  margin: 0 auto; /* Center images */
+  border-radius: 8px;
 }
 
 /* Features Section */
@@ -149,55 +84,9 @@ body {
   gap: 20px;
 }
 
-/* Roadmap Section */
-.roadmap {
-  padding: 60px 0;
-  background: #ecf0f1;
-}
-
-.roadmap h2 {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.roadmap-timeline {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-/* Responsive Design - Mobile */
+/* Mobile Adjustments */
 @media screen and (max-width: 768px) {
   
-  /* Make navigation mobile-friendly */
-  .menu-icon {
-    display: block;
-  }
-
-  .nav {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    background: white;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-  }
-
-  .nav.active {
-    display: flex;
-  }
-
-  .nav ul {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .nav li {
-    margin: 10px 0;
-  }
-
   /* Adjust Hero Section */
   .hero h2 {
     font-size: 2.2rem;
@@ -207,16 +96,21 @@ body {
     font-size: 1rem;
   }
 
+  /* Reduce Button Size */
   .btn {
     padding: 8px 25px;
   }
 
-  /* Make Features Single Column */
+  /* Ensure Images Fit on Small Screens */
+  .feature-image {
+    max-width: 250px; /* Further reduce size on smaller screens */
+  }
+
+  /* Make Features and Roadmap Sections Stack */
   .feature-grid {
     grid-template-columns: 1fr;
   }
 
-  /* Make Roadmap Single Column */
   .roadmap-timeline {
     grid-template-columns: 1fr;
   }
