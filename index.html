@@ -4,19 +4,762 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cushion – When the Market Falls, We Cushion Your Crash</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Google Fonts for a modern look -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      --primary: #6c5ce7;
+      --primary-dark: #5649c0;
+      --secondary: #00cec9;
+      --dark: #2d3436;
+      --light: #f5f6fa;
+      --gray: #dfe6e9;
+      --danger: #d63031;
+      --success: #00b894;
+      --warning: #fdcb6e;
+      
+      --font-main: 'Space Grotesk', sans-serif;
+      --font-secondary: 'Montserrat', sans-serif;
+      
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-secondary);
+      color: var(--dark);
+      line-height: 1.6;
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-main);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 span {
+      color: var(--primary);
+    }
+
+    .section-subtitle {
+      color: #666;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Header Styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: white;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav ul {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav a {
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    /* Hero Styles */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding-top: 100px;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+      gap: 3rem;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-text h2 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-text h2 span {
+      display: block;
+      color: var(--warning);
+    }
+
+    .hero-text .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-img {
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .hero-wave svg {
+      position: relative;
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 120px;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Features Styles */
+    .features {
+      background-color: white;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-item {
+      background-color: var(--light);
+      border-radius: 15px;
+      padding: 2rem;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: white;
+      font-size: 1.8rem;
+    }
+
+    .feature-item h3 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    /* Roadmap Styles */
+    .roadmap {
+      background-color: var(--light);
+    }
+
+    .roadmap-timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    }
+
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 0 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-marker {
+      position: absolute;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      border: 4px solid white;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-marker {
+      right: -12px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-marker {
+      left: -12px;
+    }
+
+    .timeline-content {
+      background-color: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .timeline-content h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .timeline-content ul {
+      margin-left: 1rem;
+    }
+
+    .timeline-content li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-content li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    /* Community Styles */
+    .community {
+      background-color: white;
+    }
+
+    .community-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .community-text {
+      flex: 1;
+    }
+
+    .community-text p {
+      margin-bottom: 2rem;
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .social-link i {
+      font-size: 1.2rem;
+    }
+
+    .social-link.twitter {
+      background-color: #1DA1F2;
+      color: white;
+    }
+
+    .social-link.discord {
+      background-color: #5865F2;
+      color: white;
+    }
+
+    .social-link.telegram {
+      background-color: #26A5E4;
+      color: white;
+    }
+
+    .social-link:hover {
+      transform: translateX(10px);
+    }
+
+    .community-image {
+      flex: 1;
+    }
+
+    .community-img {
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* FAQ Styles */
+    .faq {
+      background-color: var(--light);
+    }
+
+    .faq-grid {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.5rem;
+      background-color: white;
+      border: none;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .faq-question:hover {
+      background-color: #f8f9fa;
+    }
+
+    .faq-question i {
+      transition: var(--transition);
+    }
+
+    .faq-question.active i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background-color: white;
+    }
+
+    .faq-answer p {
+      padding: 0 1.5rem 1.5rem;
+    }
+
+    /* CTA Styles */
+    .cta {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    .cta-card {
+      background-color: white;
+      color: var(--dark);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-card h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-card p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    /* Footer Styles */
+    .footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 4rem 0 0;
+    }
+
+    .footer-content {
+      display: flex;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      flex: 1;
+    }
+
+    .footer-brand p {
+      margin: 1rem 0;
+      opacity: 0.8;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .footer-social a:hover {
+      background-color: var(--primary);
+    }
+
+    .footer-links {
+      flex: 2;
+      display: flex;
+      gap: 3rem;
+    }
+
+    .footer-column h4 {
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-column ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .footer-column a {
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer-column a:hover {
+      opacity: 1;
+      color: var(--secondary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-legal a {
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer-legal a:hover {
+      opacity: 1;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 4rem 0;
+      }
+      
+      .hero-buttons {
+        justify-content: center;
+      }
+      
+      .community-content {
+        flex-direction: column;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+      }
+      
+      .footer-links {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        transform: translateY(-150%);
+        transition: var(--transition);
+        z-index: 999;
+      }
+      
+      .nav.active {
+        transform: translateY(0);
+      }
+      
+      .nav ul {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .hero-text h2 {
+        font-size: 2.5rem;
+      }
+      
+      .roadmap-timeline::before {
+        left: 20px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 50px;
+        padding-right: 0;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-marker {
+        left: 8px !important;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .section-header h2 {
+        font-size: 2rem;
+      }
+      
+      .hero-text h2 {
+        font-size: 2rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
   <header class="header">
     <div class="container header-container">
       <div class="logo">
-        <img src="cushion-logo.svg" alt="Cushion Logo" class="logo-img" />
+        <img src="https://placeholder.com/40x40" alt="Cushion Logo" class="logo-img" />
         <h1>Cushion</h1>
       </div>
       <nav class="nav">
@@ -28,65 +771,98 @@
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </nav>
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section id="hero" class="hero">
     <div class="container hero-content">
-      <h2>When the Market Falls, We Cushion Your Crash</h2>
-      <p>
-        Cushion is the smart, innovative Solana memecoin designed to rise when traditional cryptocurrencies dip.
-      </p>
-      <a href="#features" class="btn">Learn More</a>
+      <div class="hero-text">
+        <h2>When the Market Falls, <span>We Cushion Your Crash</span></h2>
+        <p class="subtitle">
+          The first Solana memecoin designed to rise when traditional cryptocurrencies dip.
+        </p>
+        <div class="hero-buttons">
+          <a href="#features" class="btn btn-primary">Learn More</a>
+          <a href="#community" class="btn btn-outline">Join Community</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://placeholder.com/500x400" alt="Cushion Token Visual" class="hero-img">
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="#fff"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="#fff"></path>
+        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="#fff"></path>
+      </svg>
     </div>
   </section>
 
   <!-- Features Section -->
   <section id="features" class="features">
     <div class="container">
-      <h2>Features</h2>
+      <div class="section-header">
+        <h2>Why Choose <span>Cushion</span></h2>
+        <p class="section-subtitle">Innovative features designed to protect your investment</p>
+      </div>
       <div class="feature-grid">
         <div class="feature-item">
-          <img src="dynamic-treasury.jpg" alt="Dynamic Treasury" class="feature-image" />
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
           <h3>Dynamic Treasury</h3>
           <p>
-            A dedicated treasury that collects transaction fees and market downturn gains, ready to deploy for buybacks.
+            A dedicated treasury collects transaction fees and market downturn gains, ready to deploy for strategic buybacks.
           </p>
         </div>
         <div class="feature-item">
-          <img src="buyback-burn.jpg" alt="Automated Buyback &amp; Burn" class="feature-image" />
-          <h3>Automated Buyback &amp; Burn</h3>
+          <div class="feature-icon">
+            <i class="fas fa-fire"></i>
+          </div>
+          <h3>Automated Buyback & Burn</h3>
           <p>
-            When market volatility strikes, Cushion automatically buys back tokens and burns them—reducing supply and increasing value.
+            When volatility strikes, Cushion automatically buys back tokens and burns them—reducing supply and increasing value.
           </p>
         </div>
         <div class="feature-item">
-          <img src="staking-rewards.jpg" alt="Staking Rewards" class="feature-image" />
+          <div class="feature-icon">
+            <i class="fas fa-coins"></i>
+          </div>
           <h3>Staking Rewards</h3>
           <p>
             Stake your Cushion tokens and earn enhanced rewards during market dips.
           </p>
         </div>
         <div class="feature-item">
-          <img src="nft-integration.jpg" alt="NFT Integration" class="feature-image" />
+          <div class="feature-icon">
+            <i class="fas fa-image"></i>
+          </div>
           <h3>NFT Integration</h3>
           <p>
             Unlock exclusive, limited-edition NFTs that boost your rewards and community status.
           </p>
         </div>
         <div class="feature-item">
-          <img src="dao-governance.jpg" alt="DAO Governance" class="feature-image" />
+          <div class="feature-icon">
+            <i class="fas fa-vote-yea"></i>
+          </div>
           <h3>DAO Governance</h3>
           <p>
             Join the Cushion Collective to vote on key decisions and shape the ecosystem.
           </p>
         </div>
         <div class="feature-item">
-          <img src="deflationary-model.jpg" alt="Deflationary Model" class="feature-image" />
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
           <h3>Deflationary Model</h3>
           <p>
-            A small transaction burn and strategic buybacks ensure scarcity, driving long-term value.
+            Transaction burns and strategic buybacks ensure scarcity, driving long-term value.
           </p>
         </div>
       </div>
@@ -96,31 +872,58 @@
   <!-- Roadmap Section -->
   <section id="roadmap" class="roadmap">
     <div class="container">
-      <h2>Roadmap</h2>
+      <div class="section-header">
+        <h2>Our <span>Roadmap</span></h2>
+        <p class="section-subtitle">The journey to revolutionize crypto stability</p>
+      </div>
       <div class="roadmap-timeline">
         <div class="timeline-item">
-          <h3>Phase 1</h3>
-          <p>
-            Launch on Solana, community building, staking activation, and initial treasury funding.
-          </p>
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Phase 1: Foundation</h3>
+            <ul>
+              <li>Launch on Solana mainnet</li>
+              <li>Community building initiatives</li>
+              <li>Staking activation</li>
+              <li>Initial treasury funding</li>
+            </ul>
+          </div>
         </div>
         <div class="timeline-item">
-          <h3>Phase 2</h3>
-          <p>
-            DAO formation, NFT integration, and expanded buyback/burn mechanics.
-          </p>
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Phase 2: Expansion</h3>
+            <ul>
+              <li>DAO formation</li>
+              <li>NFT integration</li>
+              <li>Enhanced buyback/burn mechanics</li>
+              <li>First CEX listing</li>
+            </ul>
+          </div>
         </div>
         <div class="timeline-item">
-          <h3>Phase 3</h3>
-          <p>
-            Strategic partnerships, cross-chain integrations, and advanced hedging strategies.
-          </p>
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Phase 3: Growth</h3>
+            <ul>
+              <li>Strategic partnerships</li>
+              <li>Cross-chain integration</li>
+              <li>Advanced hedging strategies</li>
+              <li>Merchandise store launch</li>
+            </ul>
+          </div>
         </div>
         <div class="timeline-item">
-          <h3>Phase 4</h3>
-          <p>
-            Ecosystem expansion, continuous innovation, and global community growth.
-          </p>
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Phase 4: Maturity</h3>
+            <ul>
+              <li>Ecosystem expansion</li>
+              <li>Continuous innovation</li>
+              <li>Global community growth</li>
+              <li>Cushion Foundation establishment</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -129,14 +932,30 @@
   <!-- Community Section -->
   <section id="community" class="community">
     <div class="container">
-      <h2>Community</h2>
-      <p>
-        Join our vibrant community to stay updated, share ideas, and be part of the Cushion revolution.
-      </p>
-      <div class="social-links">
-        <a href="https://twitter.com" target="_blank">Twitter</a>
-        <a href="https://discord.com" target="_blank">Discord</a>
-        <a href="https://t.me" target="_blank">Telegram</a>
+      <div class="community-content">
+        <div class="community-text">
+          <div class="section-header">
+            <h2>Join Our <span>Community</span></h2>
+            <p class="section-subtitle">Be part of the movement that's changing how crypto handles volatility</p>
+          </div>
+          <p>
+            Our vibrant community is at the heart of everything we do. Join thousands of like-minded investors who believe in a more stable crypto future.
+          </p>
+          <div class="social-links">
+            <a href="https://twitter.com" target="_blank" class="social-link twitter">
+              <i class="fab fa-twitter"></i> Twitter
+            </a>
+            <a href="https://discord.com" target="_blank" class="social-link discord">
+              <i class="fab fa-discord"></i> Discord
+            </a>
+            <a href="https://t.me" target="_blank" class="social-link telegram">
+              <i class="fab fa-telegram"></i> Telegram
+            </a>
+          </div>
+        </div>
+        <div class="community-image">
+          <img src="https://placeholder.com/500x400" alt="Cushion Community" class="community-img">
+        </div>
       </div>
     </div>
   </section>
@@ -144,24 +963,55 @@
   <!-- FAQ Section -->
   <section id="faq" class="faq">
     <div class="container">
-      <h2>FAQ</h2>
-      <div class="faq-item">
-        <h3>What is Cushion?</h3>
-        <p>
-          Cushion is a Solana-based memecoin engineered to rise when major cryptocurrencies fall. It leverages automated buybacks, staking rewards, and a dynamic treasury to offer stability in volatile markets.
-        </p>
+      <div class="section-header">
+        <h2>Frequently Asked <span>Questions</span></h2>
+        <p class="section-subtitle">Everything you need to know about Cushion</p>
       </div>
-      <div class="faq-item">
-        <h3>How do buybacks work?</h3>
-        <p>
-          When market dips occur, our system uses treasury funds to buy back Cushion tokens. These tokens are then burned, reducing the circulating supply and supporting the token's value.
-        </p>
-      </div>
-      <div class="faq-item">
-        <h3>How can I get involved?</h3>
-        <p>
-          Join our community on Twitter, Discord, or Telegram to stay informed and participate in governance decisions.
-        </p>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What is Cushion?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Cushion is a Solana-based memecoin with a unique value proposition - it's engineered to rise when major cryptocurrencies fall. Unlike traditional memecoins, Cushion leverages automated buybacks, staking rewards, and a dynamic treasury to offer stability in volatile markets.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do the buybacks work?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Our system continuously monitors market conditions. When significant dips occur in major cryptocurrencies (BTC, ETH, SOL), our smart contracts automatically use treasury funds to buy back Cushion tokens from the market. These tokens are then permanently burned, reducing the circulating supply and supporting the token's value.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How can I stake my tokens?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Staking is simple! Connect your Solana wallet to our staking portal, deposit your Cushion tokens, and start earning rewards immediately. During market downturns, staking rewards are automatically boosted to incentivize holding.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is Cushion audited?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Yes, our smart contracts have been audited by leading blockchain security firms. We prioritize security and transparency, with all audit reports available to the public in our documentation.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -169,18 +1019,136 @@
   <!-- Call to Action -->
   <section class="cta">
     <div class="container">
-      <h2>Ready to cushion your crypto journey?</h2>
-      <a href="#community" class="btn">Join Our Community</a>
+      <div class="cta-card">
+        <h2>Ready to cushion your crypto journey?</h2>
+        <p>Join thousands of investors who are protected against market volatility</p>
+        <div class="cta-buttons">
+          <a href="#community" class="btn btn-primary">Join Community</a>
+          <a href="#" class="btn btn-outline">Buy Now</a>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2025 Cushion. All rights reserved.</p>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">
+            <img src="https://placeholder.com/40x40" alt="Cushion Logo" class="logo-img" />
+            <h1>Cushion</h1>
+          </div>
+          <p>When the Market Falls, We Cushion Your Crash</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#roadmap">Roadmap</a></li>
+              <li><a href="#">Tokenomics</a></li>
+              <li><a href="#">Whitepaper</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Community</h4>
+            <ul>
+              <li><a href="#community">Join Us</a></li>
+              <li><a href="#">Governance</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Merch</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Cushion. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const nav = document.querySelector('.nav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      mobileMenuBtn.innerHTML = nav.classList.contains('active') 
+        ? '<i class="fas fa-times"></i>' 
+        : '<i class="fas fa-bars"></i>';
+    });
+
+    // FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        const isOpen = question.classList.contains('active');
+        
+        // Close all other items
+        faqQuestions.forEach(q => {
+          q.classList.remove('active');
+          q.nextElementSibling.style.maxHeight = null;
+        });
+        
+        // Open current if it was closed
+        if (!isOpen) {
+          question.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if (nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        }
+      });
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        document.querySelector('.header').style.background = 'rgba(255, 255, 255, 0.95)';
+        document.querySelector('.header').style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+      } else {
+        document.querySelector('.header').style.background = 'white';
+        document.querySelector('.header').style.boxShadow = '0 4px 6px rgba(0
